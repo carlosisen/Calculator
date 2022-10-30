@@ -1,29 +1,104 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Calculator maximum</title>
+
+    <title>Recalculator </title>
     <link rel="stylesheet" href="calculadora.css">
+    <script>
+        class calculadora {
+            constructor(botones, operaciones, carrier, pantalla,) {
+                this.botones = botones;
+                this.operaciones = operaciones;
+                this.carrier = carrier;
+                this.pantalla = pantalla;
+            }
+            addValue(a) {
+                this.pantalla += a
+                document.getElementById("resultado").setAttribute("value", `${this.pantalla}`)
+            }
+            clear() {
+                this.carrier = "0"
+                this.pantalla = ""
+                this.operaciones = null
+                document.getElementById("resultado").setAttribute("value", `${this.pantalla}`)
+            }
+            calc() {
+                if (this.operaciones == null) {
+                    this.carrier = parseInt(this.carrier) + parseInt(this.pantalla)
+                }
+                if (this.operaciones == 1) {
+                    this.carrier = parseInt(this.carrier) + parseInt(this.pantalla)
+                }
+                if (this.operaciones == 2) {
+                    this.carrier = parseInt(this.carrier) - parseInt(this.pantalla)
+                }
+            }
+            oper(b) {
+                if (b === 0 && this.pantalla != "") {
+                    this.calc();
+                    this.pantalla = "-";
+                    this.operaciones = 2;
+                    document.getElementById("resultado").setAttribute("value", `${this.pantalla}`);
+                    this.pantalla = "";
+                }
+                else if (b === 1 && this.pantalla != "") {
+                    this.calc()
+                    this.operaciones = 1
+                    this.pantalla = "+";
+                    document.getElementById("resultado").setAttribute("value", `${this.pantalla}`)
+                    this.pantalla = ""
+                }
+                else if (b === 2) {
+                    this.calc()
+                    this.pantalla = this.carrier.toString();
+                    document.getElementById("resultado").setAttribute("value", `${this.pantalla}`);
+                    this.carrier = 0;
+                    this.operaciones = null
+                }
+            }
+
+        }
+        let calculator = new calculadora([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], null, 0, "")
+
+    </script>
 </head>
 
 <body>
-    <div class="principal">
-        <p><input type="text" id="resultado" readonly></p>
-        <div class="panel"> 
-            <div class="numeros">
-            <p><button type="button" id="1" value="1">1</button> <button type="button" value="2" id="2">2</button> <button type="button" id= "3" value="3">3</button></p>
-            <p><button type="button" id="4" value="4">4</button> <button type="button" value="5" id="5">5</button> <button
-                    type="button" id="6" value="6">6</button></p>
-            <p><button type="button" id="7" value="7">7</button> <button type="button" value="8" id="8">8</button> <button type="button" id="9" value="9">9</button></p>
-            <p id=" ultimafila"> <button type="button" id="0" value="0">0</button> </p>
-            </div>
-            <div class="signs">
-                <p><button type="button" id="+" value="+">+</button></p>
-                <p><button type="button" id="-" value="-">-</button></p>
-                <p><button type="button" id="=" value="=">=</button></p>
+
+    <body>
+        <p id="title"> Calculadora</p>
+        <div class="principal">
+            <p><input type="text" id="resultado" readonly value=""></p>
+            <div class="panel">
+                <div class="numeros">
+                    <p><button type="button" id="1" value="1" onclick="calculator.addValue(1)">1</button>
+                        <button type="button" value="2" id="2" onclick="calculator.addValue(2)">2</button>
+                        <button type="button" id="3" value="3" onclick="calculator.addValue(3)">3</button>
+                    </p>
+                    <p><button type="button" id="4" value="4" onclick="calculator.addValue(4)">4</button>
+                        <button type="button" value="5" id="5" onclick="calculator.addValue(5)">5</button>
+                        <button type="button" id="6" value="6" onclick="calculator.addValue(6)">6</button>
+                    </p>
+                    <p><button type="button" id="7" value="7" onclick="calculator.addValue(7)">7</button>
+                        <button type="button" value="8" id="8" onclick="calculator.addValue(8)">8</button>
+                        <button type="button" id="9" value="9" onclick="calculator.addValue(9)">9</button>
+                    </p>
+                    <p id=" ultimafila"> <button type="button" id="0" value="0"
+                            onclick="calculator.addValue(0)">0</button>
+                        <button type="button" id="clear" value="" onclick="calculator.clear(0)">CL</button>
+                    </p>
+                </div>
+                <div class="signs">
+                    <p><button type="button" id="+" value="+" onclick="calculator.oper(1)">+</button></p>
+                    <p><button type="button" id="-" value="-" onclick="calculator.oper(0)">-</button></p>
+                    <p><button type="button" id="=" value="=" onclick="calculator.oper(2)">=</button></p>
+                </div>
             </div>
         </div>
-    </div>
+    </body>
+
+</html>
 </body>
 
 </html>
